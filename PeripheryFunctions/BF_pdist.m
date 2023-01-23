@@ -58,7 +58,7 @@ switch distMetric
         dij = @(v1,v2) sqrt(sum((v1-v2).^2))/length(v1)*n2; % if less entries, don't bias
     case {'PearsonCorr','Pearson'}
         dij = @(v1,v2) subdc(v1,v2,'Pearson');
-    case {'Spearman','corr','correlation','abscorr'}
+    case {'Spearman','corr','correlation','abscorr', 'corr_fast'}
         dij = @(v1,v2) subdc(v1,v2,'Spearman');
     otherwise
         error('Unknown distance metric: ''%s''',distMetric)
