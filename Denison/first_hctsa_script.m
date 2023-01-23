@@ -14,12 +14,21 @@ for i = 1:length(pvt)
     end
 end 
 
+% save('pvt.mat', 'pvt')
 
+%% 
 % down sampling to reduce computation time. Later we can use the original
 % pvt data
 
-down_sample_pvt = datasample(pvt, 5, 'Replace',false);
 
+down_sample_pvt = datasample(pvt, 50, 'Replace',false);
+
+
+%% Keywords and Labels setup
+labels = {down_sample_pvt.id};
+keywords = {down_sample_pvt.PVT};
+
+%% FOR USING ACT
 % convert act to double from integer.
 A = repelem("placeholder", length(down_sample_pvt));
 timeSeriesData = cellstr(A);
@@ -28,27 +37,29 @@ for j = 1:length(down_sample_pvt)
     timeSeriesData{j} = double(down_sample_pvt(j).act);
 end
 
+%% FOR USING PVT
+timeSeriesData = {down_sample_pvt.lapses};
 
 
 
-% ok this initialises and saves all the variables into INP_test.mat
-% so dont need to redo these variables, as long as you don't touch the
-% INP_Test matrix file then it should b ok !
-
-
+%% Start Init and Computations
 save('INP_test.mat','timeSeriesData','labels','keywords');
 TS_Init('INP_test.mat');
 TS_Compute
 
 
-TS_InspectQuality % look at the missing data etc
-% for our downsample, the best threshold we can take is 40%, but of course
-% we should increase this if we can. maybe for the whole dataset.
-% also normalises using the mixed sigmoid normalisation for range [0,1]
-TS_Normalize('mixedSigmoid', [0.4,1.0])  % of those "bad" time series, we take the ones with minimum 40% good features
+TS_InspectQuality % look at the errors produced by various computation
+
+TS_Normalize('zscore', [0.3,1])  % of those "bad" time series, we take the ones with minimum 40% good features
 
 
 % from here if you want to use the normalised data, call "norm" 
-TS_LabelGroups('norm') % this groups each time series by the keywords, but in our case we only have one keyword "A" because 
-% im not sure what to cluster them manually as. Can look too change
+TS_LabelGroups('norm') % this groups each time series by the keywords
 
+TS_Cluster()
+TS_PlotDataMatrix('norm','colorGroups', true)
+
+% svm
+TS_Classify('norm')
+
+TS_CompareFeatureSets
