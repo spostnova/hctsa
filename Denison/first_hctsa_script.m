@@ -25,8 +25,8 @@ down_sample_pvt = datasample(pvt, 50, 'Replace',false);
 
 
 %% Keywords and Labels setup
-labels = {down_sample_pvt.id};
-keywords = {down_sample_pvt.PVT};
+labels = {pvt.id};
+keywords = {pvt.PVT};
 
 %% FOR USING ACT
 % convert act to double from integer.
@@ -38,7 +38,7 @@ for j = 1:length(down_sample_pvt)
 end
 
 %% FOR USING PVT
-timeSeriesData = {down_sample_pvt.lapses};
+timeSeriesData = {pvt.lapses};
 
 
 
@@ -47,10 +47,10 @@ save('INP_test.mat','timeSeriesData','labels','keywords');
 TS_Init('INP_test.mat');
 TS_Compute
 
-
+%% 
 TS_InspectQuality % look at the errors produced by various computation
 
-TS_Normalize('zscore', [0.3,1])  % of those "bad" time series, we take the ones with minimum 40% good features
+TS_Normalize('zscore', [0.4,1])  % of those "bad" time series, we take the ones with minimum 40% good features
 
 
 % from here if you want to use the normalised data, call "norm" 
@@ -63,3 +63,5 @@ TS_PlotDataMatrix('norm','colorGroups', true)
 TS_Classify('norm')
 
 TS_CompareFeatureSets
+
+TS_TopFeatures % Plot the top features
