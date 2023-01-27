@@ -64,4 +64,4 @@ TS_Classify('norm')
 
 TS_CompareFeatureSets
 
-TS_TopFeatures % Plot the top features
+TS_TopFeatures % Plot the top features% % 
