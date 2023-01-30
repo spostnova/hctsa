@@ -116,8 +116,6 @@ TS_Compute
 TS_Cluster()
 TS_PlotDataMatrix
 %% C2
-down_sample_pvt = datasample(pvt, 50, 'Replace',false);
-
 labels = {down_sample_pvt.id};
 keywords = {down_sample_pvt.C2};
 timeSeriesData = {down_sample_pvt.lapses};
@@ -127,8 +125,6 @@ TS_Compute
 TS_Cluster()
 TS_PlotDataMatrix
 %% C3
-down_sample_pvt = datasample(pvt, 50, 'Replace',false);
-
 labels = {down_sample_pvt.id};
 keywords = {down_sample_pvt.C3};
 timeSeriesData = {down_sample_pvt.lapses};
@@ -138,8 +134,6 @@ TS_Compute
 TS_Cluster()
 TS_PlotDataMatrix
 %% C4
-down_sample_pvt = datasample(pvt, 50, 'Replace',false);
-
 labels = {down_sample_pvt.id};
 keywords = {down_sample_pvt.C4};
 timeSeriesData = {down_sample_pvt.lapses};
@@ -149,8 +143,6 @@ TS_Compute
 TS_Cluster()
 TS_PlotDataMatrix
 %% C5
-down_sample_pvt = datasample(pvt, 50, 'Replace',false);
-
 labels = {down_sample_pvt.id};
 keywords = {down_sample_pvt.C5};
 timeSeriesData = {down_sample_pvt.lapses};
