@@ -45,7 +45,11 @@ for j = 1:5 % counter for inserting values into rows for matrix
         I = 0;
     end
 end
-label = {'C1';'C2';'C3';'C4';'C5'};
+label = {'lapses_mean'
+    ;'RT_rm_anti_mean'
+    ;'RT_rm_anti_mean_SD_rb'
+    ;'rRT_rm_anti_mean'
+    ;'rRT_rm_anti_mean_SD_rb'};
 Resilience_Table = array2table(RMatrix,'RowNames',label,'VariableNames',label);
 Vulnerable_Table = array2table(VMatrix,'RowNames',label,'VariableNames',label);
 Intermediate_Table = array2table(IMatrix,'RowNames',label,'VariableNames',label);
@@ -53,4 +57,41 @@ Intermediate_Table = array2table(IMatrix,'RowNames',label,'VariableNames',label)
 Resilience_Table
 Intermediate_Table
 Vulnerable_Table
+
+
+
+%% check if the algorithm above is right or not.
+% C5 and C2
+comp_matrix = [C2,C5];
+counter = 0;
+for i = 1:size(C2,1)
+    if (comp_matrix(i,1) == comp_matrix(i,2)) 
+        if comp_matrix(i,1) == "Resilient"
+            counter = counter + 1;
+        end
+    end
+end
+dd = ['Number of Agreed Resilient between RT_rm_anti_mean and rRT_rm_anti_mean_SD_rb is: ', num2str(counter)];
+disp(dd);
+
+
+%%
+y = [pvtSD_acti_overlap.rRT_rm_anti_mean_SD_relative_baseline].';
+y = normalize(y,'range');
+[sortedY, sortOrder] = sort(y, 'ascend');
+figure(1),bar(sortedY)
+lower = quantile(y, 0.25);
+upper = quantile(y, 0.75);
+yline(lower, '-r',{'Vulnerable'})
+yline(upper, '-g' ,{'Resilient'})
+
+
+y1 =  [pvtSD_acti_overlap.RT_rm_anti_mean_CR].';
+y1 = normalize(y1, 'range');
+[sortedY, sortOrder] = sort(y1, 'ascend');
+figure(2),bar(sortedY)
+lower = quantile(y1, 0.25);
+upper = quantile(y1, 0.75);
+yline(lower, '-r',{'Vulnerable'})
+yline(upper, '-g' ,{'Resilient'})
 
