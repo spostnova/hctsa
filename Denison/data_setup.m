@@ -1,5 +1,7 @@
 % Required mat files - pvtSD_acti_overlap and acti1_cropped_overlap
 function data_setup(pvtSD_acti_overlap,acti1_cropped_overlap)
+load('pvtSD_acti_overlap.mat')
+load('acti1_cropped_overlap.mat')
 % create structure
 pvt = struct('id', {pvtSD_acti_overlap.id}, 'lapses', ...
     {pvtSD_acti_overlap.lapses},'act', {acti1_cropped_overlap.act}, ...
@@ -96,3 +98,4 @@ end
 save('pvt.mat', 'pvt')
 
 end
+
