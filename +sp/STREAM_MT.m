@@ -11,16 +11,18 @@ keywords_double = {melSD(1:N).month};
 
 for i = 1:N
     timeSeriesData{i} = melSD(i).MT_interp(1:10:end);
-    if keywords_double{i}== 12 || keywords_double{i}== 1 || keywords_double{i}== 2
-        keywords{i} = 'winter';
-    elseif keywords_double{i}== 3 || keywords_double{i}== 4 || keywords_double{i}== 5
-        keywords{i} = 'spring';
-    elseif keywords_double{i}== 6 || keywords_double{i}== 7 || keywords_double{i}== 8
-        keywords{i} = 'summer';
-    elseif keywords_double{i}== 9 || keywords_double{i}== 10 || keywords_double{i}== 11
-        keywords{i} = 'autumn';
-        
-    end
+    keywords{i} = num2str(keywords_double{i});
+    
+%     if keywords_double{i}== 12 || keywords_double{i}== 1 || keywords_double{i}== 2
+%         keywords{i} = 'winter';
+%     elseif keywords_double{i}== 3 || keywords_double{i}== 4 || keywords_double{i}== 5
+%         keywords{i} = 'spring';
+%     elseif keywords_double{i}== 6 || keywords_double{i}== 7 || keywords_double{i}== 8
+%         keywords{i} = 'summer';
+%     elseif keywords_double{i}== 9 || keywords_double{i}== 10 || keywords_double{i}== 11
+%         keywords{i} = 'autumn';
+%         
+%     end
 end
 
 % Save these variables out to INP_test.mat:
@@ -41,12 +43,12 @@ TS_Compute();
 TS_LabelGroups('')
 
 % normalize the outputs
-TS_Normalize('mixedSigmoid',[0.8,1.0]);
+TS_Normalize('mixedSigmoid',[0.9,1.0]);
 
 % cluster rows and columns
 distanceMetricRow = 'euclidean'; % time-series feature distance
 linkageMethodRow = 'average'; % linkage method
-distanceMetricCol = 'corr_fast'; % a (poor) approximation of correlations with NaNs
+distanceMetricCol = 'corr'; % a (poor) approximation of correlations with NaNs
 linkageMethodCol = 'average'; % linkage method
 
 TS_Cluster(distanceMetricRow, linkageMethodRow, distanceMetricCol, linkageMethodCol);
