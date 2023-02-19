@@ -1,28 +1,36 @@
 clear all
+close all
 
-load('Data/data_GWA_mat/MT/melSD.mat')
+% run pre-processing of the actigraphy data
+% sp.actigraphy_preprocess;
+
+load('Data/data_GWA_mat/Actigraphy/acti2_clean_Fri_week.mat')
+acti = acti_clean_Fri_week;
 
 % define number of participants to test
-N = length(melSD);
+N = length(acti);
+points_per_day = 1440;
 
-% timeSeriesData = {melSD(1:N).MT_interp};
-labels = {melSD(1:N).id};
-keywords_double = {melSD(1:N).month};
+%timeSeriesData = {acti(1:N).act};
+labels = {acti(1:N).id};
+keywords_double = {acti(1:N).day1_month}; % as some recordings may span 2 months, we track month by mid of recording. 
 
 for i = 1:N
-    timeSeriesData{i} = melSD(i).MT_interp(1:10:end);
+    timeSeriesData{i} = acti(i).act(1:1:360); % 8AM to 8PM on Friday
+   % timeSeriesData{i} = acti(i).act(3*points_per_day+1:1:4*points_per_day); % Monday only
+   % timeSeriesData{i} = acti(i).act(1:1:end); % all days
     keywords{i} = num2str(keywords_double{i});
     
-%     if keywords_double{i}== 12 || keywords_double{i}== 1 || keywords_double{i}== 2
-%         keywords{i} = 'winter';
-%     elseif keywords_double{i}== 3 || keywords_double{i}== 4 || keywords_double{i}== 5
-%         keywords{i} = 'spring';
-%     elseif keywords_double{i}== 6 || keywords_double{i}== 7 || keywords_double{i}== 8
-%         keywords{i} = 'summer';
-%     elseif keywords_double{i}== 9 || keywords_double{i}== 10 || keywords_double{i}== 11
-%         keywords{i} = 'autumn';
-%         
-%     end
+    if keywords_double{i}== 12 || keywords_double{i}== 1 || keywords_double{i}== 2
+        keywords{i} = 'winter';
+    elseif keywords_double{i}== 3 || keywords_double{i}== 4 || keywords_double{i}== 5
+        keywords{i} = 'spring';
+    elseif keywords_double{i}== 6 || keywords_double{i}== 7 || keywords_double{i}== 8
+        keywords{i} = 'summer';
+    elseif keywords_double{i}== 9 || keywords_double{i}== 10 || keywords_double{i}== 11
+        keywords{i} = 'autumn';
+        
+    end
 end
 
 % Save these variables out to INP_test.mat:
@@ -43,7 +51,7 @@ TS_Compute();
 TS_LabelGroups('')
 
 % normalize the outputs
-TS_Normalize('mixedSigmoid',[0.9,1.0]);
+TS_Normalize('mixedSigmoid',[0.8,1.0]);
 
 % cluster rows and columns
 distanceMetricRow = 'euclidean'; % time-series feature distance

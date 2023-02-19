@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 function acti_preprocess(pvt, acti1_cropped_overlap)
 load('Data/pvt.mat')
 load('Data/acti1_cropped_overlap.mat')
+=======
+%%
+
+load('Data/data_GWA_mat/pvt/pvtSD_acti_overlap.mat')
+load('Data/data_GWA_mat/acti1_cropped_overlap.mat')
+>>>>>>> 13512b44ba783c17e35069d40541cb4d056e4de7
 %% acti pre processing
 a = struct('id', {pvt.id}, 'time_datetime',{acti1_cropped_overlap.time_datetime},...
            'act', {acti1_cropped_overlap.act},'duration_days', {acti1_cropped_overlap.duration_days},...
