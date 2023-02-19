@@ -1,8 +1,8 @@
 % required dataset is pvt.mat which can be constructed from data_setup.m
-load('pvtSD_acti_overlap.mat')
-load('acti1_cropped_overlap.mat')
+load('Data/pvtSD_acti_overlap.mat')
+load('Data/acti1_cropped_overlap.mat')
 data_setup(pvtSD_acti_overlap, acti1_cropped_overlap)
-load('pvt.mat')
+load('Data/pvt.mat')
 % init matrices
 C1 = [pvt.C1].';
 C2 = [pvt.C2].';

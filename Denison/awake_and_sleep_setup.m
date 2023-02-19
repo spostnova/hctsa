@@ -1,5 +1,5 @@
 %%
-
+function awake_sleep_setup(pvt, acti1_cropped_overlap)
 load('Data/pvt.mat')
 load('Data/acti1_cropped_overlap.mat')
 %% acti pre processing
@@ -150,6 +150,6 @@ end
 
 save('sleep_acti', 'sleep_acti')
 
-
+end
 
 

@@ -1,5 +1,4 @@
-%%
-
+function acti_preprocess(pvt, acti1_cropped_overlap)
 load('Data/pvt.mat')
 load('Data/acti1_cropped_overlap.mat')
 %% acti pre processing
@@ -92,7 +91,7 @@ for i = 1:length(downsample_act)
 end
 
 save('clean_act', 'downsample_act')
-
+end
        
 
 

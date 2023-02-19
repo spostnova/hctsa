@@ -29,20 +29,6 @@ TS_FeatureSummary(12,'raw',true);
 
 TS_Classify('norm')
 
-%%
-% seed = RandStream("twister");
-% data = datasample(seed, downsample_act, 100, 'Replace',false);
-
-
-
-labels = {downsample_act.id};
-keywords = {downsample_act.C4};
-timeSeriesData = {downsample_act.act};
-
-save('INP_test.mat','timeSeriesData','labels','keywords');
-TS_Init('INP_test.mat');
-TS_Compute(false)
-
 %% Trying again but with the subset of awake and sleeping data.
 load('Data/awake_acti.mat')
 load('Data/sleep_acti.mat')
